@@ -1,0 +1,96 @@
+{
+  "name": "plain-craft-launcher",
+  "productName": "Plain Craft Launcher N",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Plain Craft Launcher N - a community Minecraft launcher inspired by PCL2 CE",
+  "main": "src/main/main.js",
+  "author": "PCL-N",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "setup": "node node_modules/electron/install.js",
+    "test:meta": "node scripts/test-core.js meta",
+    "test:install": "node scripts/test-core.js install",
+    "test:launch": "node scripts/test-core.js launch",
+    "test:auth": "node scripts/test-auth.js",
+    "test:modpack": "node scripts/test-modpack.js",
+    "test:cf": "node scripts/test-cf-pack.js",
+    "dist:win": "electron-builder --win portable --x64",
+    "dist:win-installer": "electron-builder --win nsis --x64",
+    "dist:mac": "electron-builder --mac dmg zip --universal",
+    "dist:all": "electron-builder --win portable --x64 --mac dmg zip"
+  },
+  "devDependencies": {
+    "electron": "^38.8.6",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.pcln.launcher",
+    "productName": "Plain Craft Launcher N",
+    "copyright": "Copyright © 2026 PCL-N",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "src/**/*",
+      "assets/icon.png",
+      "package.json",
+      "README.md"
+    ],
+    "asar": true,
+    "compression": "normal",
+    "win": {
+      "icon": "assets/icon.png",
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "PCL-N-${version}-win-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "PCL-N-${version}-win-${arch}-portable.${ext}",
+      "requestExecutionLevel": "user"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "PCL-N-${version}-win-${arch}-setup.${ext}"
+    },
+    "mac": {
+      "icon": "assets/icon.png",
+      "category": "public.app-category.games",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "artifactName": "PCL-N-${version}-mac-${arch}.${ext}"
+    },
+    "linux": {
+      "icon": "assets/icon.png",
+      "target": [
+        "AppImage"
+      ],
+      "category": "Game",
+      "artifactName": "PCL-N-${version}-linux-${arch}.${ext}"
+    },
+    "fileAssociations": [
+      {
+        "ext": "mrpack",
+        "name": "Modrinth Modpack",
+        "role": "Editor"
+      }
+    ]
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron"
+    ]
+  }
+}
