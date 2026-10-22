@@ -82,6 +82,21 @@ dist/PCL-N-1.0.0-mac-universal.zip
 **windows-latest / macos-14 / ubuntu-latest** 三个 runner 上分别出
 `PCL-N-windows-x64`、`PCL-N-macos-universal`、`PCL-N-linux-x64` 三个 artifact。
 
+### 从 Actions 下载产物
+
+run id 在 Actions 页面链接末尾（`.../actions/runs/<run-id>`）。命令行下载要**显式指定仓库**，
+否则在非 git 目录执行会报 `failed to run git: fatal: not a git repository`：
+
+```bash
+# 指定仓库 + 绝对路径（-D 后面不能只写一个点，容易被 shell 吃掉）
+gh run download <run-id> -R CsOH-Lawrence/PCL-N -n PCL-N-macos-universal -D "D:/downloads/macos"
+
+# 一次拉全部
+gh run download <run-id> -R CsOH-Lawrence/PCL-N -D "D:/downloads/pcln"
+```
+
+也可以在 Actions 页面底部直接点 Artifacts 下载（浏览器支持断点续传，比命令行稳）。
+
 ---
 
 ## 打包后的数据目录
