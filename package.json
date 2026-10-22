@@ -16,10 +16,10 @@
     "test:auth": "node scripts/test-auth.js",
     "test:modpack": "node scripts/test-modpack.js",
     "test:cf": "node scripts/test-cf-pack.js",
-    "dist:win": "electron-builder --win portable --x64",
-    "dist:win-installer": "electron-builder --win nsis --x64",
-    "dist:mac": "electron-builder --mac dmg zip --universal",
-    "dist:all": "electron-builder --win portable --x64 --mac dmg zip"
+    "dist:win": "electron-builder --win portable --x64 --publish never",
+    "dist:win-installer": "electron-builder --win nsis --x64 --publish never",
+    "dist:mac": "electron-builder --mac dmg zip --universal --publish never",
+    "dist:all": "electron-builder --win portable --x64 --mac dmg zip --publish never"
   },
   "devDependencies": {
     "electron": "^38.8.6",
