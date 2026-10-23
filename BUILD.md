@@ -72,15 +72,17 @@ dist/PCL-N-1.0.0-mac-universal.zip
 - 右键 → 打开，或在「系统设置 - 隐私与安全性」里点「仍要打开」；
 - 或者在终端执行 `xattr -cr "/Applications/Plain Craft Launcher N.app"` 去掉隔离属性。
 
-如果要在 GitHub 上出包，仓库里已经带了工作流：
+通过 GitHub Actions 可以出三平台产物（仓库已设为 public，标准 runner 免费，macOS 也不再消耗私有仓库额度）：
 
-```
-.github/workflows/build.yml
+```bash
+# 推 tag 触发
+git tag -a v1.0.1 -m "v1.0.1" && git push origin v1.0.1
+# 或者手动触发
+gh workflow run build.yml --ref main
 ```
 
-推一个 tag（例如 `v1.0.0`）或手动触发 workflow，就会在 GitHub 的
-**windows-latest / macos-14 / ubuntu-latest** 三个 runner 上分别出
-`PCL-N-windows-x64`、`PCL-N-macos-universal`、`PCL-N-linux-x64` 三个 artifact。
+工作流在 `.github/workflows/build.yml`，会分别在 `windows-latest` / `macos-14` / `ubuntu-latest`
+上产出 `PCL-N-windows-x64`、`PCL-N-macos-universal`、`PCL-N-linux-x64` 三个 artifact。
 
 ### 从 Actions 下载产物
 
